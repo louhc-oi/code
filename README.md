@@ -12,4 +12,4 @@ And welcome to my blog!
 
 ## to-do list
 
--[ ] Copy codes I write before to the repository.
+- Copy codes I write before to the repository.
