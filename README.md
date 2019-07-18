@@ -2,8 +2,6 @@
  
 > 終わるまでは終わらないよ！
 
-- [ ] test
-
 Hello, I am louhc!  
 The repository is used to store my code in many OJs.  
 Certainly it is not all the codes.  
@@ -14,7 +12,7 @@ And welcome to my blog!
 
 ## to-do list
 
-- Copy codes I write before to the repository.
+- [ ] Copy codes I write before to the repository. 
 
 ## I love Chtholly forever!
 
