@@ -23,7 +23,7 @@ vector<node> e[MAXN << 2];
 priority_queue<node> Q;
 int d[MAXN]; char vis[MAXN];
 
-inline void addedge( int x, int y, int z = 0 ){ /*printf( "add edge %d -> %d : %d\n", x, y, z ),*/ e[x].push_back(node(y, z)); }
+inline void addedge( int x, int y, int z = 0 ){ e[x].push_back(node(y, z)); }
 
 #define ls c << 1
 #define rs c << 1 | 1
@@ -44,20 +44,20 @@ void work( int c, int l, int r ){
 	work( ls, l, mid ), work( rs, mid + 1, r );
 }
 
-inline void SPFA(){
-	queue<int> q;
-	memset( d, 0x7f, sizeof d ), d[1] = 0, q.push(1), vis[1] = 1;
-	while( !q.empty() ){
-		int x(q.front()), y; q.pop(); vis[x] = 0;
-		for ( vector<node>::iterator i = e[x].begin(); i != e[x].end(); ++i ){
-			y = i->x;
-			if ( d[y] > d[x] + i->y ){
-				d[y] = d[x] + i->y;
-				if ( !vis[y] ) vis[y] = 1, q.push(y);
-			}
-		}
-	} for ( int i = 2; i <= n; ++i ) printf( "%d\n", d[i] );
-}
+//inline void SPFA(){
+//	queue<int> q;
+//	memset( d, 0x7f, sizeof d ), d[1] = 0, q.push(1), vis[1] = 1;
+//	while( !q.empty() ){
+//		int x(q.front()), y; q.pop(); vis[x] = 0;
+//		for ( vector<node>::iterator i = e[x].begin(); i != e[x].end(); ++i ){
+//			y = i->x;
+//			if ( d[y] > d[x] + i->y ){
+//				d[y] = d[x] + i->y;
+//				if ( !vis[y] ) vis[y] = 1, q.push(y);
+//			}
+//		}
+//	} for ( int i = 2; i <= n; ++i ) printf( "%d\n", d[i] );
+//}
 
 inline void Solve(){
 	memset( d, 0x7f, sizeof d ), d[1] = 0, Q.push(node(0, 1));
