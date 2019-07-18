@@ -74,9 +74,9 @@ inline void Solve(){
 }
 
 int main(){
-	open("jump1");
+	open("jump");
 	scanf( "%d%d%d%d", &n, &m, &w, &h );
-	for ( int i = 1; i <= n; ++i ) scanf( "%d%d", &a[i].x, &a[i].y ), mp[ID(a[i].x,a[i].y)] = i;
+	for ( int i = 1; i <= n; ++i ) scanf( "%d%d", &a[i].x, &a[i].y );
 	for ( int i = 1; i <= m; ++i ) scanf( "%d%d%d%d%d%d", &c[i].p, &c[i].t, &c[i].L, &c[i].R, &c[i].D, &c[i].U );
 	if ( h == 1 ){
 		for ( int i = 1; i <= n; ++i ) v[a[i].x].push_back(i);
@@ -84,6 +84,7 @@ int main(){
 		for ( int i = 1; i <= m; ++i ) edge_x = c[i].p, edge_v = c[i].t,
 			L = c[i].L, R = c[i].R, work( 1, 1, n );
 	}else{
+		for ( int i = 1; i <= n; ++i ) mp[ID(a[i].x,a[i].y)] = i;
 		for ( int i = 1; i <= m; ++i )
 			for ( int x = c[i].L; x <= c[i].R; ++x )
 				for ( int y = c[i].D; y <= c[i].U; ++y )
