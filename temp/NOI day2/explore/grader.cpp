@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include<Windows.h>
+#define open(s) freopen( s".in", "r", stdin ), freopen( s".out", "w", stdout )
 
 #define MAX_N 200010
 #define MAX_M 1000010
@@ -66,6 +68,7 @@ int check(int x) {
 }
 
 int main() {
+	open("explore1");
 	e.tot = 1;
 	assert(scanf("%d%d%d", &m_lim, &q_lim, &c_lim) == 3);
 	int N, M, i;
