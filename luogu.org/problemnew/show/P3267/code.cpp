@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include<cstdio>
 using namespace std;
 #define i64 long long
 #define MAXN 500005
