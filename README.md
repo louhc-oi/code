@@ -12,7 +12,7 @@ And welcome to my blog!
 
 ## to-do list
 
-- [ ] Copy codes I write before to the repository. 
+- [x] Copy codes I write before to the repository. 
 
 ## I love Chtholly forever!
 
