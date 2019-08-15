@@ -1,1 +1,0 @@
-g++ grader.cpp explore.cpp -o explore -O2 -lm
