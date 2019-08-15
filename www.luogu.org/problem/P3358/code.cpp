@@ -24,7 +24,7 @@ int N, NN, K, n;
 int a[MAXN], b[MAXN], c[MAXN<<1];
 
 namespace nwf{
-	const int MAXV = 505, MAXE = 5005;
+	const int MAXV = 1005, MAXE = 10005;
 	int S, T, hd[MAXV], nxt[MAXE], to[MAXE], val[MAXE], c[MAXE], tot(1);
 	inline void addedge( int x, int y, int z, int s ){
 		nxt[++tot] = hd[x], hd[x] = tot, to[tot] = y, val[tot] = z, c[tot] = s;
@@ -49,13 +49,13 @@ namespace nwf{
 int main(){
 	t_bg = clock();
 	read(N), read(K), NN = N << 1;
-	fp( i, 1, N ) read(a[i]), read(b[i]), --b[i], c[(i<<1)-1] = a[i], c[i<<1] = b[i];
-	sort( c + 1, c + NN + 1 ), n = 1; fp( i, 2, NN ) if ( c[i] != c[i - 1] ) c[++n] = c[i];
-	S = 0, T = n + 1;
-	fp( i, 1, N ) addedge( S, lower_bound( c + 1, c + NN + 1, a[i] ) - c, 1, 0 ), addedge( lower_bound( c + 1, c + NN + 1, b[i] ) - c, T, 1, 0 );
-	fp( i, 1, n - 1 ) addedge( i, i + 1, K, -c[i + 1] + c[i] - 1 );
+	fp( i, 1, N ) read(a[i]), read(b[i]), a[i] > b[i] ? swap(a[i],b[i]), 0 : 0, c[(i<<1)-1] = a[i], c[i<<1] = b[i];
+	sort( c + 1, c + NN + 1 ), n = unique(c + 1, c + NN + 1) - c - 1;
+	S = 0, T = n + 1; fp( i, 0, n ) addedge(i, i + 1, K, 0);
+	fp( i, 1, N ) addedge( lower_bound(c + 1, c + n + 1, a[i]) - c, lower_bound(c + 1, c + n + 1, b[i]) - c, 1, a[i] - b[i] );
 	printf( "%lld\n", -nwf::calc() );
 	t_ed = clock();
 	fprintf( stderr, "\n========info========\ntime : %.3f\n====================\n", (double)( t_ed - t_bg ) / CLOCKS_PER_SEC );
 	return 0;
 }
+
