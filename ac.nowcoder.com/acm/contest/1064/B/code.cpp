@@ -12,7 +12,9 @@ int S, T;
 char bf[1<<21], *p;
 int read( int len = INT_MAX ){
 	int ans(0);
-	while( !isdigit(*p) ) p++;
+	while( !isdigit(*p) ){
+		p++; if ( *p == '\0' ) return -12345;
+	}
 	while( isdigit(*p) && len-- ) ans = ans * 10 + ((*p) ^ '0'), p++;
 	return ans;
 }
@@ -55,10 +57,11 @@ int main(){
 	#ifdef LOCAL
 	freopen( "1.in", "r", stdin );
 	#endif
+	memset( bf, 0, sizeof bf );
 	bf[fread( bf, 1, 1 << 21, stdin )] = '\0'; p = bf;
-	Ti = read();
-	while( Ti-- ){
-		N = read(); M = read();
+	
+	while( ( N = read() ) >= 0 ){
+		M = read();
 		memset( hd, 0, sizeof hd ); tot = 1;
 		for ( int i = 1; i <= N; ++i ) Add( i, i + N, 1 );
 		
