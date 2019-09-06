@@ -6,7 +6,7 @@ using namespace std;
 #define go( i, b ) for ( int i(b), v(to[i]); i; v = to[i = nxt[i]] )
 template<typename T> inline void cmax( T &x, T y ){ x < y ? x = y : x; }
 template<typename T> inline void cmin( T &x, T y ){ y < x ? x = y : x; }
-//#define getchar() ( p1 == p2 && ( p1 = bf, p2 = bf + fread( bf, 1, 1 << 21, stdin ), p1 == p2 ) ? EOF : *p1++ )
+#define getchar() ( p1 == p2 && ( p1 = bf, p2 = bf + fread( bf, 1, 1 << 21, stdin ), p1 == p2 ) ? EOF : *p1++ )
 char bf[1 << 21], *p1(bf), *p2(bf);
 template<typename T>
 inline void read( T &x ){ char t(getchar()), flg(0); x = 0;
@@ -27,19 +27,18 @@ void tarjan( int u ){
 	for ( int v : e[u] ) if ( !dfn[v] ){
 		tarjan(v), cmin( low[u], low[v] );
 		if ( low[v] >= dfn[u] ){
-			cerr << "> " << 
-			fp( i, 1, tp ) cer
-			dcc[++cnt].push_back(stk[tp]);
-			while( stk[tp] != u ) dcc[cnt].push_back(stk[--tp]);
+			int z; dcc[++cnt].push_back(u);
+			do dcc[cnt].push_back(z = stk[tp--]); while( z != v );
 		}
 	} else cmin( low[u], dfn[v] );
 }
 
 bool DFS( int u ){
-	for ( int v : e[u] ) if ( !c[v] ){
-		c[v] = 3 - c[u]; if ( !DFS(v) ) return 0;
-	} else if ( c[v] + c[u] != 3 ) return 0;
-	return 1;
+	for ( int v : e[u] )if ( d[v] ){
+		if ( !c[v] ){
+			c[v] = 3 - c[u]; if ( !DFS(v) ) return 0;
+		} else if ( c[v] + c[u] != 3 ) return 0;
+	} return 1;
 }
 
 signed main(){
@@ -49,15 +48,13 @@ signed main(){
 		fp( i, 1, N ) e[i].clear(), dcc[i].clear();
 		fp( i, 1, M ) read(x), read(y), mp[x][y] = mp[y][x] = 1;
 		fp( i, 1, N ) fp( j, i + 1, N ) if ( !mp[i][j] ) addedge( i, j );
-		fp( u, 1, N ) for ( int v : e[u] ) cerr << " " << u << " " << v << endl;
 		memset( dfn, 0, sizeof dfn );
 		fp( i, 1, N ) if ( !dfn[i] ) rt = i, tarjan(i);
 		fp( k, 1, cnt ){
-			for ( int i : dcc[k] ) d[i] = 1, cerr << " " << i << " ";
-			cerr << endl;
-			if ( DFS(dcc[k][0]) ) for ( int i : dcc[k] ) ok[i] = 1;
+			for ( int i : dcc[k] ) d[i] = 1;
+			if ( !DFS(dcc[k][0]) ) for ( int i : dcc[k] ) ok[i] = 1;
 			for ( int i : dcc[k] ) d[i] = 0, c[i] = 0;
-		} fp( i, 1, N ) ans += ok[i], ok[i] = 0;
+		} fp( i, 1, N ) ans += !ok[i], ok[i] = 0;
 		printf( "%d\n", ans );
 	}
 	t_ed = clock();
