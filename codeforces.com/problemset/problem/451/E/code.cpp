@@ -1,30 +1,30 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define i64 long long
-#define mod 1000000007
 #define fp( i, b, e ) for ( int i(b), I(e); i <= I; ++i )
 #define fd( i, b, e ) for ( int i(b), I(e); i >= I; --i )
-#define go( i, b ) for ( int i(b), v(to[i]); i; v = to[i = nxt[i]] )
-template<typename T> inline void cmax( T &x, T y ){ x < y ? x = y : x; }
-template<typename T> inline void cmin( T &x, T y ){ y < x ? x = y : x; }
-#define getchar() ( p1 == p2 && ( p1 = bf, p2 = bf + fread( bf, 1, 1 << 21, stdin ), p1 == p2 ) ? EOF : *p1++ )
-char bf[1 << 21], *p1(bf), *p2(bf);
-template<typename T>
-inline void read( T &x ){ char t(getchar()), flg(0); x = 0;
-	for ( ; !isdigit(t); t = getchar() ) flg = t == '-';
-	for ( ; isdigit(t); t = getchar() ) x = x * 10 + ( t & 15 );
-	flg ? x = -x : x;
+
+i64 N, S, ans;
+i64 f[25], inv[25];
+const int mod = 1e9 + 7;
+
+inline i64 C( i64 n, i64 m ){
+	if ( n < m ) return 0;
+	i64 t(1);
+	for ( i64 i = n - m + 1; i <= n; ++i ) t = i % mod * t % mod;
+	for ( i64 i = 2; i <= m; ++i ) t = t * inv[i] % mod; 
+	return t;
 }
 
-clock_t t_bg, t_ed;
-
-int N, M;
-
-int main(){
-	t_bg = clock();
-	t_ed = clock();
-	fprintf( stderr, "\n========info========\ntime : %.3f\n====================\n", (double)( t_ed - t_bg ) / CLOCKS_PER_SEC );
+signed main(){
+	scanf( "%I64d%I64d", &N, &S );
+	fp( i, 1, N ) scanf( "%I64d", f + i );
+	inv[1] = 1; fp( i, 2, N ) inv[i] = mod - mod / i *  inv[mod % i] % mod;
+	fp( i, 0, (1 << N) - 1 ){
+		i64 t(S + N - 1), o(1);
+		fp( j, 0, N - 1 ) if ( (i >> j) & 1 )o = mod - o, t -= f[j + 1] + 1;
+		ans = ( ans + o * C(t, N - 1) ) % mod;
+	} printf( "%I64d\n", ans );
 	return 0;
 }
-
 
